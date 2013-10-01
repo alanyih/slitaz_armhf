@@ -1,0 +1,53 @@
+
+SYNOPSIS
+	cross [command|package] package
+
+DESCRIPTION
+	Cross is a tool to build a cross toolchain on SliTaz GNU/Linux. The
+	ARM platform is actually supported and a x86_64 toolchain is on the
+	stove
+
+COMMANDS
+	Run: cross usage
+
+OPTIONS
+	--log      clean: Will also clean log files
+	--config=  Use specified configuration file
+
+HOWTO:
+	When building a cross toolchain it's better to understand what is a
+	linker or C compiler such as GCC. The configure option --target is
+	used by 'cross' to build cross-tools. When the toolchain is built on
+	your machine you can then build packages with cook and the wok. Cross
+	uses by default the same source tarballs as cook but the path can be
+	changed via the config file. Configuration is: cross.conf. Here is a
+	cmdline howto:
+
+	Create a chroot (use last tazdev)
+	---------------------------------
+	# tazdev gen-chroot --arch=arm
+	# tazdev chroot
+
+	Clone cookutils to get last cook and cross
+	------------------------------------------
+	# tazpkg -gi mercurial
+	# tazpkg -gi make
+	# cd && hg clone http://hg.slitaz.org/cookutils
+	# cd cookutils
+	# make install-cross
+
+	Setup the build environment, get source and compile a cross toolchain
+	---------------------------------------------------------------------
+	# cook arm-setup
+	# cook setup
+	(vi/nano /etc/slitaz/cross.conf)
+	# cross check
+	# cross download
+	# cross compile
+
+	Test the cross toolchain
+	------------------------
+	# cross testsuite
+
+AUTHORS
+	Written by Christophe Lincoln
